@@ -1,0 +1,160 @@
+OBJETIVOS ACADÊMICOS :                                                                     O objetivo deste projeto é consolidar o uso da programação funcional em Python por meio do desenvolvimento de um sistema de gerenciamento de tarefas. O sistema implementa operações fundamentais — criação, filtragem, transformação, ordenação e resumo — empregando recursos como funções lambda, list comprehensions, closures e funções de alta ordem (HOFs). Além de atender ao propósito funcional, o projeto reforça boas práticas de imutabilidade, modularização e testes automatizados
+          ESCOPO SO SISTEMA 
+
+O sistema será uma biblioteca em Python , organizada em pacotes, que permitirá:
+
+1: Gerenciar uma lista imutável de tarefas;
+
+2: Aplicar transformações funcionais sobre tarefas;
+
+3: Filtrar e ordenar tarefas conforme critérios definidos;
+
+4: Obter resumos de dados, como esforços agrupados por tags;
+
+5: Garantir confiabilidade por meio de testes automatizados.
+       PROGRAMAÇÃO FUNCIONAL
+
+   1: Funções Lambda
+
+°sort_tasks_by_title (ordenar por título).
+
+°make_min_effort_predicate (predicado dinâmico).
+
+
+  2: List Comprehension
+
+°summarize_effort_by_tag (soma esforços agrupados por tag).
+
+
+  3: Closures
+
+°make_title_prefixer (função gerada para prefixar títulos).
+
+°make_min_effort_predicate (gera predicado baseado em esforço mínimo).
+
+
+FUNÇÕES DE ALTA ORDEM 
+
+map_tasks
+1- aplica transformação.
+
+filter_tasks 
+2- aplica filtro
+
+complete_all_with_tag 
+3- utiliza HOF internamente
+
+
+Testes implementados no arquivo tests/test_app.py com pytest.
+
+TESTE	DE DESCRIÇÃO DE REQUISITOS VALIDADOS : 
+
+1: test_add_task
+
+	Verifica se a adição de tarefas mantém a imutabilidade.	R F-1, R N-1
+
+2: test_filter_closure 
+
+Testa o filtro baseado em esforço mínimo closure.	R F-3, R F-7
+3: test_map_closure	
+Verifica se o título das tarefas é prefixado corretamente.	R F-2, R F-6
+4: test_sort_lambda
+	Garante a ordenação alfabética com lambda.	 R F-4
+5: test_list_comprehension_summary
+
+	Confere a soma de esforços por tag list comprehension.	R F-5
+6: test_complete_hof	
+
+Verifica se todas as tarefas com determinada tag são concluídas.	R F-8
+
+REQUISITOS FUNCIONAIS 
+
+Código	Requisito	Implementação	
+
+R F-1	 Adicionar uma nova tarefa à lista de   
+
+IMPLEMENTAÇÃO: tarefas	add_task(tasks, new_task)	
+
+CRITERIOS: Retorna nova lista sem alterar a original.
+R F-2 	Aplicar transformações a todas as  
+
+IMPLEMENTAÇÃO: tarefas	map_tasks(tasks, transform_fn)
+
+CRITERIOS : 	Função de alta ordem que aplica transformação em cada item.
+R F-3 	Filtrar tarefas com base em um critério	 
+
+IMPLEMENTAÇÃO: filter_tasks(tasks, predicate_fn)
+
+CRITERIOS: 	Função de alta ordem que aplica predicado.
+R F-4	 Ordenar tarefas alfabeticamente pelo 
+
+IMPLEMENTAÇÃO: título	sort_tasks_by_title(tasks)	
+
+CRITERIOS: Utiliza sorted com lambda.
+R F-5	 Calcular o esforço total por tag	
+
+IMPLEMENTAÇÃO summarize_effort_by_tag(tasks)	
+
+CRITERIOS: Utiliza list comprehension.
+R F-6	 Criar transformações dinâmicas de título	
+
+IMPLEMENTAÇÃO: make_title_prefixer(prefix)	
+
+CRITERIOS: Closure que retorna função para prefixar títulos.
+R F-7	 Criar predicados baseados em esforço mínimo
+
+IMPLEMENTAÇÃO:	make_min_effort_predicate(min_effort)	
+
+CRITERIOS Closure com lambda para filtrar tarefas.
+R F-8	 Concluir todas as tarefas com determinada tag
+
+IMPLEMENTAÇÃO: 	complete_all_with_tag(tasks, tag)	Usa map_tasks internamente (HOF).
+R F-9 	O sistema deverá garantir segurança para as credenciais
+
+IMPLEMENTAÇÃO: 	encrypt_password(password), store_password(encrypted_password)
+
+CRITERIOS: 	As credenciais não devem ser armazenadas em texto puro.
+
+REQUISITOS NÃO FUNCIONAIS 
+
+Código	Requisito	Implementação	
+
+R N - 1 o sistema deve ser imutável
+        IMPLEMENTAÇÃO :	Uso de @dataclass(frozen=True)	
+
+ CRITERIOS:Nenhuma tarefa é modificada diretamente.
+R N-2	O sistema deve possuir testes
+
+IMPLEMENTAÇÃO :automatizados	Arquivo tests/test_app.py	
+
+CRITERIOS:Testes implementados com pytest.
+R N-3	O código deve estar organizado em pacotes	Estrutura
+
+IMPLEMENTAÇÃO: src/app + tests
+
+CRITERIOS :	Segue boas práticas de organização de projeto Python.
+R N-4	 O sistema deve rodar em Python 3.12+	
+
+CRITERIOS: Testado em ambiente virtual	Compatibilidade assegurada.
+R N-5	 As credenciais devem ser armazenadas de forma segura
+	 CRITERIOS: Uso de hashing/salting com encrypt_password	Garante proteção contra acesso indevido.
+
+
+REQUISITOS DE SEGURANÇA DAS CREDENCIAS 
+
+Código	Tipo	Requisito	Implementação	
+
+RSC ,Funcional e Não Funcional	O sistema deverá garantir segurança para as credenciais, criptografando senhas antes de armazená-las.
+                      IMPLEMENTAÇÃO: 
+	encrypt_password(password) e store_password(encrypted_password)	
+                     CRITERIOS :
+
+As credenciais não devem ser armazenadas em texto puro. É obrigatório o uso de algoritmos de hashing seguro.
+          REFERÊNCIAS A DOCUMENTAÇÃO DO SISTEMA
+Python Documentation – Functional Programming HOWTO
+
+Real Python – Functional Programming in Python
+
+Pytest Documentation – https://docs.pytest.org/
+
+Corey Schafer – Closures and Decorators in Pythonw
